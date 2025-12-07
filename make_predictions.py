@@ -1,24 +1,31 @@
+
 """Prediccion script for the MLflow model.
 
-This script loads a trained model from MLflow and makes predictions
+This script loads a model from MLflow and makes predictions on a dataset.
 
-$ python3 make_predicitions.py
+$ python3 make_predictions.py
+
+
 """
 
 import mlflow
 import pandas as pd
 
+# Configurar el tracking URI para usar la carpeta mlruns (filesystem)
+mlflow.set_tracking_uri("file:./mlruns")
+
 FILE_PATH = "data/winequality-red.csv"
+
 
 df = pd.read_csv(FILE_PATH)
 y = df["quality"]
-X = df.drop("quality", axis=1)
+x = df.drop(columns=["quality"])
 
 ## Debe verificarse el run_id del modelo que se quiere cargar
 ## Se puede obtener el run_id desde la interfaz de MLflow
 
-logged_model = "runs:/e8183756a430413b922bfb1dbe32210b/model"
+logged_model = "runs:/f169dc8fd0d74d17956b924f48ab5734/model"
 loaded_model = mlflow.pyfunc.load_model(logged_model)
-y = loaded_model.predict(X)
+y = loaded_model.predict(x)
 
 print(y)
