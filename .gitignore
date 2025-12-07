@@ -1,7 +1,6 @@
 .DS_Store
 
 
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -176,3 +175,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# MLflow artifacts and tracking
+mlruns/
+mlartifacts/
